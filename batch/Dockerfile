@@ -1,25 +1,32 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim
+FROM python:3.10.6-alpine
 
+# upgrade pip
+RUN pip install --upgrade pip
+
+# get curl for healthchecks
+RUN apk add curl
+
+# permissions and nonroot user for tightened security
+RUN adduser -D nonroot
+RUN mkdir /home/app/ && chown -R nonroot:nonroot /home/app
+RUN mkdir -p /var/log/flask-app && touch /var/log/flask-app/flask-app.err.log && touch /var/log/flask-app/flask-app.out.log
+RUN chown -R nonroot:nonroot /var/log/flask-app
+WORKDIR /home/app
+USER nonroot
+
+# copy all the files to the container
+COPY --chown=nonroot:nonroot . .
+
+# venv
+ENV VIRTUAL_ENV=/home/app/venv
+
+# python setup
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN export FLASK_APP=app.py
+RUN pip install -r requirements.txt
+
+# define the port number the container should expose
 EXPOSE 5001
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
-
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
-
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
-
-WORKDIR /app
-COPY . /app
-
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
-
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["python", "app.py"]

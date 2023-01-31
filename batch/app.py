@@ -68,4 +68,4 @@ def sql_output(order_line):
             raise SystemExit(e)
 
 
-app.run(port=app_port)
+app.run(port=app_port, host="0.0.0.0")
