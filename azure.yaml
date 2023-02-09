@@ -2,9 +2,9 @@ name: bindings-dapr-node-postgres-aca
 metadata:
   template: bindings-dapr-node-postgres-aca@0.0.1-beta
 services:
-  batch:
+   api:
     project: batch
     language: python
     host: containerapp
-    module: app/batch-service
+    module: app/api
  
