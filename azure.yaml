@@ -1,6 +1,6 @@
-name: bindings-dapr-node-postgres-aca
+name: bindings-dapr-python-postgres-aca
 metadata:
-  template: bindings-dapr-node-postgres-aca@0.0.1-beta
+  template: bindings-dapr-python-postgres-aca@0.0.1-beta
 services:
    api:
     project: batch
