@@ -6,7 +6,7 @@ languages:
 - bicep
 products:
 - azure
-- azure-postgresql
+- azure-database-postgresql
 - azure-container-apps
 urlFragment: bindings-dapr-python-cron-postgres
 name: Event-driven work using bindings (Python)
