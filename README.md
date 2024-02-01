@@ -1,3 +1,19 @@
+---
+page_type: sample
+languages:
+- azdeveloper
+- python
+- bicep
+products:
+- azure
+- azure-database-postgresql
+- azure-container-apps
+urlFragment: bindings-dapr-python-cron-postgres
+name: Event-driven work using bindings (Python)
+description: Create a microservice app with Python to demonstrate Dapr's bindings API to work with external systems as inputs and outputs. The service listens to input binding events from a system CRON and then outputs the contents of local data to a PostreSql output binding.
+---
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+
 # Event-driven work using bindings 
 
 In this quickstart, you'll create a microservice to demonstrate Dapr's bindings API to work with external systems as inputs and outputs. The service listens to input binding events from a system CRON and then outputs the contents of local data to a PostreSql output binding. 
