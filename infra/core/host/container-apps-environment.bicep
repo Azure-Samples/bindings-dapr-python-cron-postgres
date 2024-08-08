@@ -5,6 +5,9 @@ param tags object = {}
 param logAnalyticsWorkspaceName string
 param applicationInsightsName string = ''
 param daprEnabled bool = false
+param vnetInternal bool = true
+@description('Name of the Vnet')
+param vnetName string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: name
@@ -19,7 +22,15 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
       }
     }
     daprAIInstrumentationKey: daprEnabled && applicationInsightsName != '' ? applicationInsights.properties.InstrumentationKey : ''
+    vnetConfiguration: {
+      infrastructureSubnetId: vnet.properties.subnets[0].id
+      internal: vnetInternal
+    }
   }
+}
+
+resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
+  name: vnetName
 }
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' existing = {
