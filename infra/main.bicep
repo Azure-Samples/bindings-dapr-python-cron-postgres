@@ -107,7 +107,7 @@ module postgresServer './core/database/postgres/sql/postgres-sql-db.bicep' = {
     storage: {
       storageSizeGB: 32
     }
-    version: '13'
+    version: '17'
     allowAllIPsFirewall: true
     administratorLogin: postgresUser
     administratorLoginPassword: pgPassword
